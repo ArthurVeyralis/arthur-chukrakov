@@ -1,68 +1,68 @@
 <script lang="ts">
-	import { House, User, FolderKanban, Compass, Globe } from '@lucide/svelte';
-	import { page } from '$app/stores';
-	import { lang } from '$lib/i18n/store';
-	import { t } from '$lib/i18n/translations';
-	import './layout.css';
+import { Compass, FolderKanban, Globe, House, User } from '@lucide/svelte';
+import { page } from '$app/stores';
+import { lang } from '$lib/i18n/store';
+import { t } from '$lib/i18n/translations';
+import './layout.css';
 
-	let { children } = $props();
-	let isDark = $state(false);
-	let currentLang = $state<'en' | 'ru'>('en');
+let { children } = $props();
+let isDark = $state(false);
+let currentLang = $state<'en' | 'ru'>('en');
 
-	// Инициализация при монтировании
-	$effect(() => {
-		// Инициализируем язык из localStorage
-		lang.init();
+// Инициализация при монтировании
+$effect(() => {
+	// Инициализируем язык из localStorage
+	lang.init();
 
-		// Подписываемся на изменения языка
-		const unsubscribeLang = lang.subscribe((l) => {
-			currentLang = l;
-		});
-
-		// Инициализируем тему из localStorage
-		if (typeof window !== 'undefined') {
-			const savedTheme = localStorage.getItem('theme');
-			if (savedTheme === 'dark') {
-				isDark = true;
-				document.documentElement.classList.add('dark');
-			} else {
-				isDark = false;
-				document.documentElement.classList.remove('dark');
-			}
-		}
-
-		return () => {
-			unsubscribeLang();
-		};
+	// Подписываемся на изменения языка
+	const unsubscribeLang = lang.subscribe((l) => {
+		currentLang = l;
 	});
 
-	// Обновляем класс dark на <html>
-	$effect(() => {
-		if (typeof document !== 'undefined') {
-			if (isDark) {
-				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-			}
-			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+	// Инициализируем тему из localStorage
+	if (typeof window !== 'undefined') {
+		const savedTheme = localStorage.getItem('theme');
+		if (savedTheme === 'dark') {
+			isDark = true;
+			document.documentElement.classList.add('dark');
+		} else {
+			isDark = false;
+			document.documentElement.classList.remove('dark');
 		}
-	});
-
-	function toggleTheme() {
-		isDark = !isDark;
 	}
 
-	function toggleLang() {
-		lang.toggle();
-	}
+	return () => {
+		unsubscribeLang();
+	};
+});
 
-	function isActive(path: string): boolean {
-		return $page.url.pathname === path;
+// Обновляем класс dark на <html>
+$effect(() => {
+	if (typeof document !== 'undefined') {
+		if (isDark) {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+		}
+		localStorage.setItem('theme', isDark ? 'dark' : 'light');
 	}
+});
 
-	function cn(...classes: (string | boolean | undefined)[]) {
-		return classes.filter(Boolean).join(' ');
-	}
+function toggleTheme() {
+	isDark = !isDark;
+}
+
+function toggleLang() {
+	lang.toggle();
+}
+
+function isActive(path: string): boolean {
+	return $page.url.pathname === path;
+}
+
+function cn(...classes: (string | boolean | undefined)[]) {
+	return classes.filter(Boolean).join(' ');
+}
 </script>
 
 <svelte:head>

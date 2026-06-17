@@ -14,7 +14,7 @@ const config = {
 		}),
 		paths: {
 			base: dev ? '' : '/arthur-chukrakov',
-			relative: false,  // ← ДОБАВЬ ЭТУ СТРОКУ
+			relative: false, // ← ДОБАВЬ ЭТУ СТРОКУ
 		},
 	},
 	compilerOptions: {

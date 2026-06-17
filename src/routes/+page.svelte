@@ -1,24 +1,24 @@
 <script lang="ts">
-	import { ArrowRight } from '@lucide/svelte';
-	import { lang } from '$lib/i18n/store';
-	import { t } from '$lib/i18n/translations';
-	import { page } from '$app/stores';
+import { ArrowRight } from '@lucide/svelte';
+import { page } from '$app/stores';
+import { lang } from '$lib/i18n/store';
+import { t } from '$lib/i18n/translations';
 
-	// Технологический стек
-	const techStack = ['Python', 'AI', 'Linux', 'Svelte'];
+// Технологический стек
+const techStack = ['Python', 'AI', 'Linux', 'Svelte'];
 
-	let currentLang = $state<'en' | 'ru'>('en');
+let currentLang = $state<'en' | 'ru'>('en');
 
-	$effect(() => {
-		const unsubscribe = lang.subscribe((l) => {
-			currentLang = l;
-		});
-		return unsubscribe;
+$effect(() => {
+	const unsubscribe = lang.subscribe((l) => {
+		currentLang = l;
 	});
+	return unsubscribe;
+});
 
-	// Базовый URL для OG мета-тегов
-	const baseUrl = 'https://arthurveyralis.com'; // Замени на свой домен
-	const currentUrl = $derived(`${baseUrl}${$page.url.pathname}`);
+// Базовый URL для OG мета-тегов
+const baseUrl = 'https://arthurveyralis.com'; // Замени на свой домен
+const currentUrl = $derived(`${baseUrl}${$page.url.pathname}`);
 </script>
 
 <svelte:head>
