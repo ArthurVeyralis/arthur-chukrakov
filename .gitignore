@@ -1,0 +1,34 @@
+# Node modules
+node_modules
+.svelte-kit
+.pnpm-store
+
+# Build output
+build
+dist
+
+# Environment
+.env
+.env.*
+.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+EOF
+
+worker-configuration.d.ts
+.wrangler/
+
+.npmrc
